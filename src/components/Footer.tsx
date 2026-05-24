@@ -54,7 +54,7 @@ export const Footer: React.FC = () => {
         {/* Social Icons with Specific Hover Rings */}
         <div className="flex items-center gap-4">
           <a
-            href="https://github.com"
+            href="https://github.com/aksharma-1"
             target="_blank"
             rel="noopener noreferrer"
             className="w-9 h-9 rounded-full bg-zinc-900 border border-zinc-800 hover:border-zinc-700 text-zinc-400 hover:text-zinc-100 flex items-center justify-center transition-all hover:scale-105"
@@ -63,7 +63,7 @@ export const Footer: React.FC = () => {
             <GithubIcon className="w-4 h-4" />
           </a>
           <a
-            href="https://linkedin.com"
+            href="www.linkedin.com/in/akshay-sharma-b30720235"
             target="_blank"
             rel="noopener noreferrer"
             className="w-9 h-9 rounded-full bg-zinc-900 border border-zinc-800 hover:border-indigo-500/40 text-zinc-400 hover:text-indigo-400 flex items-center justify-center transition-all hover:scale-105"
