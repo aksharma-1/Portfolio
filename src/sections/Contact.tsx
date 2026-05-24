@@ -26,18 +26,44 @@ export const Contact: React.FC = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
 
     setStatus('sending');
-    // Simulate high-quality API response lag
-    setTimeout(() => {
-      setStatus('success');
-      setFormData({ name: '', email: '', message: '' });
-      // Reset status back to idle after a few seconds
-      setTimeout(() => setStatus('idle'), 4000);
-    }, 1800);
+
+    try {
+      const access_ket = import.meta.env.VITE_WEB3_KEY
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          // Get a free key at https://web3forms.com/ and paste it below:
+          access_key: access_ket,
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          subject: `New Portfolio Message from ${formData.name}`
+        })
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        setStatus('success');
+        setFormData({ name: '', email: '', message: '' });
+        // Reset status back to idle after a few seconds
+        setTimeout(() => setStatus('idle'), 4000);
+      } else {
+        setStatus('idle');
+        alert("Submission failed. Please check your Access Key or try again.");
+      }
+    } catch (error) {
+      setStatus('idle');
+      alert("Something went wrong. Please check your connection and try again.");
+    }
   };
 
   return (
